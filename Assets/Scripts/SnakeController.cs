@@ -26,6 +26,8 @@ public class SnakeController : MonoBehaviour
     public int score = 0;
     public TMP_Text scoreText;
 
+    private GameManager gameManager; // get the game manager reference
+
     //Rigidbody rb;
 
 
@@ -33,6 +35,8 @@ public class SnakeController : MonoBehaviour
     void Start()
     {
 
+        
+        gameManager = FindAnyObjectByType<GameManager>();
         speed = startingSpeed;
         //rb = GetComponent<Rigidbody>();
         ResetState();
@@ -163,10 +167,12 @@ public class SnakeController : MonoBehaviour
             UpdateScoreText();
         } else if (other.tag == "Body")
         {
-            ResetState();
+            gameManager.GameOver();
+            //ResetState();
         }
 
     }
+
 
     public void UpdateScoreText()
     {
