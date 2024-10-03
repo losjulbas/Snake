@@ -23,8 +23,8 @@ public class SnakeController : MonoBehaviour
     public float speedIncrement = 0.2f;  // Speed increase after each food
     public float maxSpeed = 5.0f;  // Maximum speed
 
-    public int score = 0;
-    public TMP_Text scoreText;
+    //public int score = 0;
+    //public TMP_Text scoreText;
 
     private GameManager gameManager; // get the game manager reference
 
@@ -41,7 +41,7 @@ public class SnakeController : MonoBehaviour
         //rb = GetComponent<Rigidbody>();
         ResetState();
         //StartCoroutine(MoveSnake());
-        UpdateScoreText();
+        gameManager.UpdateScoreText();
     }
 
     // Update is called once per frame
@@ -139,7 +139,7 @@ public class SnakeController : MonoBehaviour
         }
     }
 
-    void ResetState()
+    public void ResetState()
     {
         for (int i = 1; i < _body.Count; i++)
         {
@@ -163,8 +163,8 @@ public class SnakeController : MonoBehaviour
         if (other.tag == "Food")
         {
             Grow();
-            score++;
-            UpdateScoreText();
+            gameManager.score++;
+            gameManager.UpdateScoreText();
         } else if (other.tag == "Body")
         {
             gameManager.GameOver();
@@ -174,9 +174,9 @@ public class SnakeController : MonoBehaviour
     }
 
 
-    public void UpdateScoreText()
-    {
-        scoreText.text = "Score: " + score.ToString();
-    }
+    //public void UpdateScoreText()
+    //{
+    //    scoreText.text = "Score: " + score.ToString();
+    //}
 
 }

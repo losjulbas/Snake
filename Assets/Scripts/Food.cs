@@ -7,7 +7,7 @@ public class Food : MonoBehaviour
     private SnakeController snakeController;
     private void Start()
     {
-        snakeController = FindObjectOfType<SnakeController>();
+        snakeController = FindAnyObjectByType<SnakeController>();
         RandomPosition();
     }
 
