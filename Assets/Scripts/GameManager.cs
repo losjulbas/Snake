@@ -16,11 +16,15 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text finalScoreText;
     public TMP_Text highScoreText;
+    public TMP_Text firstScoreText;
+    public TMP_Text secondScoreText;
+    public TMP_Text thirdScoreText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         gameOverScreen.SetActive(false);
-        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("SavedHighScore", 0).ToString();
+        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore1", 0).ToString();
+        firstScoreText.text = "1ST: " + PlayerPrefs.GetInt("HighScore1", 0).ToString();
     }
 
     public void UpdateScoreText()
@@ -32,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverScreen.SetActive(true);  // Show game over screen
         int finalScore = score;
-        finalScoreText.text = "Score: " + finalScore.ToString();
+        finalScoreText.text = "YOUR SCORE: " + finalScore.ToString();
         HighScore();
     }
 
@@ -51,28 +55,71 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
+
     public void HighScore()
     {
         // is it new high score?
-        if (PlayerPrefs.HasKey("SavedHighScore"))
+        if (PlayerPrefs.HasKey("HighScore1"))
         {
-            if (score > PlayerPrefs.GetInt("SavedHighScore"))
+            if (score > PlayerPrefs.GetInt("HighScore1"))
             {
                 //set new highscore
-                PlayerPrefs.SetInt("SavedHighScore", score);
+                PlayerPrefs.SetInt("HighScore1", score);
                 PlayerPrefs.Save();  // Save the high score
             }
         }
         else
         {
             // if there is no highscore...
-            PlayerPrefs.SetInt("SavedHighScore", score);
+            PlayerPrefs.SetInt("HighScore1", score);
             PlayerPrefs.Save();  // Save the high score
         }
-        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("SavedHighScore", 0).ToString();
+        firstScoreText.text = "1ST: " + PlayerPrefs.GetInt("HighScore1", 0).ToString();
 
+        // is it new high score?
+        if (PlayerPrefs.HasKey("HighScore2"))
+        {
+            if (score > PlayerPrefs.GetInt("HighScore2") && score < PlayerPrefs.GetInt("HighScore1"))
+            {
+                //set new highscore
+                PlayerPrefs.SetInt("HighScore2", score);
+                PlayerPrefs.Save();  // Save the high score
+            }
+        }
+        else
+        {
+            // if there is no highscore...
+            PlayerPrefs.SetInt("HighScore2", score);
+            PlayerPrefs.Save();  // Save the high score
+        }
+        secondScoreText.text = "2ND: " + PlayerPrefs.GetInt("HighScore2", 0).ToString();
+
+        // is it new high score?
+        if (PlayerPrefs.HasKey("HighScore2"))
+        {
+            if (score > PlayerPrefs.GetInt("HighScore3") && score < PlayerPrefs.GetInt("HighScore2"))
+            {
+                //set new highscore
+                PlayerPrefs.SetInt("HighScore3", score);
+                PlayerPrefs.Save();  // Save the high score
+            }
+        }
+        else
+        {
+            // if there is no highscore...
+            PlayerPrefs.SetInt("HighScore3", score);
+            PlayerPrefs.Save();  // Save the high score
+        }
+        thirdScoreText.text = "3RD: " + PlayerPrefs.GetInt("HighScore3", 0).ToString();
     }
 
 
+
+    public void ClearDataButton()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Debug.Log("All saved data has been cleared.");
+    }
 
 }
