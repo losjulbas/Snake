@@ -6,11 +6,11 @@ using TMPro;
 using System.Collections;
 
 
-public class SnakeController : MonoBehaviour
+public class WormController : MonoBehaviour
 {
 
     private Vector2 _direction = Vector2.right;
-    public List<Transform> _body = new List<Transform>();
+    public List<Transform> _wormBody = new List<Transform>();
     public Transform bodyPrefab;
     public int initialSize = 4;
     float xBoundLeft = -23f;
@@ -40,22 +40,22 @@ public class SnakeController : MonoBehaviour
         //rb = GetComponent<Rigidbody>();
         ResetState();
         //StartCoroutine(MoveSnake());
-        gameManager.UpdateSnakeScoreText();
+        gameManager.UpdateWormScoreText();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             _direction = Vector2.up;         
         }
-        if (Input.GetKeyDown(KeyCode.S)) 
+        if (Input.GetKeyDown(KeyCode.DownArrow)) 
         { _direction = Vector2.down; }
-        if (Input.GetKeyDown(KeyCode.D)) 
-        { _direction = Vector2.right; }
-        if (Input.GetKeyDown(KeyCode.A)) 
+        if (Input.GetKeyDown(KeyCode.RightArrow)) 
         { _direction = Vector2.left; }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) 
+        { _direction = Vector2.right; }
 
         if (transform.position.x < xBoundLeft)
         {
@@ -107,9 +107,9 @@ public class SnakeController : MonoBehaviour
     private void FixedUpdate()
     {
         // position body parts behind head
-        for (int i = _body.Count - 1; i > 0; i--)
+        for (int i = _wormBody.Count - 1; i > 0; i--)
         {
-            _body[i].position = _body[i - 1].position;
+            _wormBody[i].position = _wormBody[i - 1].position;
         }
 
         if (pendingGrowth > 0)
@@ -117,15 +117,15 @@ public class SnakeController : MonoBehaviour
             for (int i = 0; i < pendingGrowth; i++)
             {
                 Grow();
-                gameManager.snakeScore++;
-                gameManager.UpdateSnakeScoreText();
+                gameManager.wormScore++;
+                gameManager.UpdateWormScoreText();
                 pendingGrowth--;
             }
         }
 
         // update snakes position
         transform.position = new Vector3(
-            Mathf.Round(transform.position.x + _direction.x * speed * Time.fixedDeltaTime),
+            Mathf.Round(transform.position.x - _direction.x * speed * Time.fixedDeltaTime),
             Mathf.Round(transform.position.y + _direction.y * speed * Time.fixedDeltaTime),
             0.0f);
         //transform.position += new Vector3(Mathf.Round(_direction.x), _direction.y, 0.0f) * speed * Time.fixedDeltaTime;
@@ -136,8 +136,8 @@ public class SnakeController : MonoBehaviour
     {
         // instantiate new body part
         Transform body = Instantiate(bodyPrefab);
-        body.position = _body[_body.Count - 1].position;
-        _body.Add(body);
+        body.position = _wormBody[_wormBody.Count - 1].position;
+        _wormBody.Add(body);
 
         //rb.linearVelocity += new Vector3(Mathf.Round((transform.position.x + _direction.x) * speed), Mathf.Round((transform.position.y + _direction.y) * speed), 0.0f);
         //transform.Translate((transform.position.x + _direction.x), Mathf.Round((transform.position.y + _direction.y)), 0.0f * speed * Time.deltaTime);
@@ -152,15 +152,15 @@ public class SnakeController : MonoBehaviour
 
     public void ResetState()
     {
-        for (int i = 1; i < _body.Count; i++)
+        for (int i = 1; i < _wormBody.Count; i++)
         {
-            Destroy(_body[i].gameObject);
+            Destroy(_wormBody[i].gameObject);
         }
-        _body.Clear();
-        _body.Add(transform);
+        _wormBody.Clear();
+        _wormBody.Add(transform);
 
         // Move the snake's head to the starting position
-        transform.position = new Vector3(-23, 0, 0);
+        transform.position = new Vector3(23, 0, 0);
 
         // For each body part, instantiate it at a position relative to the head
         Vector3 bodyPartPosition = transform.position;
@@ -168,9 +168,9 @@ public class SnakeController : MonoBehaviour
         for (int i = 1; i < initialSize; i++)
         {
             // Offset each body part's position to the left of the previous part
-            bodyPartPosition.x -= 1;  // This moves the body to the left of the head
+            bodyPartPosition.x += 1;  // This moves the body to the right of the head HOPEFULLY
             Transform body = Instantiate(bodyPrefab, bodyPartPosition, Quaternion.identity);
-            _body.Add(body);
+            _wormBody.Add(body);
         }
     }
 
@@ -187,13 +187,13 @@ public class SnakeController : MonoBehaviour
         }
         else if (other.tag == "SnakeBody")
         {
-            gameManager.wormWonCollision = true;
+            gameManager.snakeWonCollision = true;
             gameManager.GameOver();
             //ResetState();
         }
         else if (other.tag == "WormBody")
         {
-            gameManager.wormWonCollision = true;
+            gameManager.snakeWonCollision = true;
             gameManager.GameOver();
         }
         else if (other.tag == "WormHead")

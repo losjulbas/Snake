@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Food
   - Body
+  - Snack
+  - SnakeBody
+  - WormBody
+  - SnakeHead
+  - WormHead
   layers:
   - Default
   - TransparentFX

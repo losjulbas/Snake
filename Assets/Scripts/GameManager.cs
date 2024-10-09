@@ -3,41 +3,86 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.VFX;
+
 
 public class GameManager : MonoBehaviour
 {
-
     public GameObject gameOverScreen;
+    public GameObject leaderboardScreen;
+    public VisualEffect fireworksVFXRight;
+    public VisualEffect fireworksVFXLeft;
 
-    public int score = 0;
+    public int snakeScore = 0;
+    public int wormScore = 0;
 
-
-    public TMP_Text scoreText;
-    public TMP_Text finalScoreText;
+    public TMP_Text snakeScoreText;
+    public TMP_Text wormScoreText;
+    public TMP_Text winnerText;
     public TMP_Text highScoreText;
     public TMP_Text firstScoreText;
     public TMP_Text secondScoreText;
     public TMP_Text thirdScoreText;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public bool headToHeadCollision = false;
+    public bool snakeWonCollision = false;
+    public bool wormWonCollision = false;
+
     void Awake()
     {
         gameOverScreen.SetActive(false);
         highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore1", 0).ToString();
         firstScoreText.text = "1ST: " + PlayerPrefs.GetInt("HighScore1", 0).ToString();
+        if (fireworksVFXRight != null)
+        {
+            fireworksVFXRight.Stop();  // Ensure it doesn't play on start
+        }
+        if (fireworksVFXLeft != null)
+        {
+            fireworksVFXLeft.Stop();  // Ensure it doesn't play on start
+        }
     }
 
-    public void UpdateScoreText()
+    public void UpdateSnakeScoreText()
     {
-        scoreText.text = "Score: " + score.ToString();
+        snakeScoreText.text = "Snake: " + snakeScore.ToString();  // Use snakeScore here
+    }
+
+    public void UpdateWormScoreText()
+    {
+        wormScoreText.text = "Worm: " + wormScore.ToString();  // Use wormScore here
     }
 
     public void GameOver()
     {
-        gameOverScreen.SetActive(true);  // Show game over screen
-        int finalScore = score;
-        finalScoreText.text = "YOUR SCORE: " + finalScore.ToString();
-        HighScore();
+        if (headToHeadCollision)
+        {
+            winnerText.text = "ITS A TIE!";
+        }
+        else if (snakeWonCollision)
+        {
+            winnerText.text = "SNAKE WON!";
+        }
+        else if (wormWonCollision)
+        {
+            winnerText.text = "WORM WON!";
+        }
+
+        // Calculate final score based on individual scores if needed
+        if (snakeScore > PlayerPrefs.GetInt("HighScore1"))
+        {
+            gameOverScreen.SetActive(true);
+            HighScore(snakeScore);  // Pass snakeScore or wormScore depending on who wins
+            fireworksVFXRight.gameObject.SetActive(true);
+            fireworksVFXRight.Play();
+            fireworksVFXLeft.gameObject.SetActive(true);
+            fireworksVFXLeft.Play();
+        }
+        else
+        {
+            gameOverScreen.SetActive(true);  // Show game over screen
+            HighScore(snakeScore);  // Example, adjust based on who wins
+        }
     }
 
     public void RestartButton()
@@ -55,65 +100,54 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
-
-    public void HighScore()
+    public void LeaderBoardButton()
     {
-        // is it new high score?
-        if (PlayerPrefs.HasKey("HighScore1"))
-        {
-            if (score > PlayerPrefs.GetInt("HighScore1"))
-            {
-                //set new highscore
-                PlayerPrefs.SetInt("HighScore1", score);
-                PlayerPrefs.Save();  // Save the high score
-            }
-        }
-        else
-        {
-            // if there is no highscore...
-            PlayerPrefs.SetInt("HighScore1", score);
-            PlayerPrefs.Save();  // Save the high score
-        }
-        firstScoreText.text = "1ST: " + PlayerPrefs.GetInt("HighScore1", 0).ToString();
-
-        // is it new high score?
-        if (PlayerPrefs.HasKey("HighScore2"))
-        {
-            if (score > PlayerPrefs.GetInt("HighScore2") && score < PlayerPrefs.GetInt("HighScore1"))
-            {
-                //set new highscore
-                PlayerPrefs.SetInt("HighScore2", score);
-                PlayerPrefs.Save();  // Save the high score
-            }
-        }
-        else
-        {
-            // if there is no highscore...
-            PlayerPrefs.SetInt("HighScore2", score);
-            PlayerPrefs.Save();  // Save the high score
-        }
-        secondScoreText.text = "2ND: " + PlayerPrefs.GetInt("HighScore2", 0).ToString();
-
-        // is it new high score?
-        if (PlayerPrefs.HasKey("HighScore2"))
-        {
-            if (score > PlayerPrefs.GetInt("HighScore3") && score < PlayerPrefs.GetInt("HighScore2"))
-            {
-                //set new highscore
-                PlayerPrefs.SetInt("HighScore3", score);
-                PlayerPrefs.Save();  // Save the high score
-            }
-        }
-        else
-        {
-            // if there is no highscore...
-            PlayerPrefs.SetInt("HighScore3", score);
-            PlayerPrefs.Save();  // Save the high score
-        }
-        thirdScoreText.text = "3RD: " + PlayerPrefs.GetInt("HighScore3", 0).ToString();
+        leaderboardScreen.SetActive(true);
+        gameOverScreen.SetActive(false);
     }
 
+    public void BackToMainMenu()
+    {
+        leaderboardScreen.SetActive(false);
+        gameOverScreen.SetActive(true);
+    }
 
+    public void HighScore(int playerScore)
+    {
+        // Get current high scores
+        int highScore1 = PlayerPrefs.GetInt("HighScore1", 0);
+        int highScore2 = PlayerPrefs.GetInt("HighScore2", 0);
+        int highScore3 = PlayerPrefs.GetInt("HighScore3", 0);
+
+        // Check if the new score is greater than HighScore1
+        if (playerScore > highScore1)
+        {
+            // Shift down the scores
+            PlayerPrefs.SetInt("HighScore3", highScore2); // Move 2nd to 3rd
+            PlayerPrefs.SetInt("HighScore2", highScore1); // Move 1st to 2nd
+            PlayerPrefs.SetInt("HighScore1", playerScore); // Set new 1st place
+        }
+        // Check if the new score is greater than HighScore2 but less than HighScore1
+        else if (playerScore > highScore2 && playerScore < highScore1)
+        {
+            // Shift down HighScore2 to HighScore3
+            PlayerPrefs.SetInt("HighScore3", highScore2); // Move 2nd to 3rd
+            PlayerPrefs.SetInt("HighScore2", playerScore); // Set new 2nd place
+        }
+        // Check if the new score is greater than HighScore3 but less than HighScore2
+        else if (playerScore > highScore3 && playerScore < highScore2)
+        {
+            PlayerPrefs.SetInt("HighScore3", playerScore); // Set new 3rd place
+        }
+
+        // Save PlayerPrefs
+        PlayerPrefs.Save();
+
+        // Update the text display
+        firstScoreText.text = "1ST: " + PlayerPrefs.GetInt("HighScore1", 0).ToString();
+        secondScoreText.text = "2ND: " + PlayerPrefs.GetInt("HighScore2", 0).ToString();
+        thirdScoreText.text = "3RD: " + PlayerPrefs.GetInt("HighScore3", 0).ToString();
+    }
 
     public void ClearDataButton()
     {
@@ -121,5 +155,5 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("All saved data has been cleared.");
     }
-
 }
+
