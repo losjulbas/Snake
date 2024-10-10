@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEditor.ShaderGraph.Internal;
 
 
 public class SnakeController : MonoBehaviour
@@ -46,15 +47,15 @@ public class SnakeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && _direction != Vector2.down)
         {
             _direction = Vector2.up;         
         }
-        if (Input.GetKeyDown(KeyCode.S)) 
+        if (Input.GetKeyDown(KeyCode.S) && _direction != Vector2.up) 
         { _direction = Vector2.down; }
-        if (Input.GetKeyDown(KeyCode.D)) 
+        if (Input.GetKeyDown(KeyCode.D) && _direction != Vector2.left) 
         { _direction = Vector2.right; }
-        if (Input.GetKeyDown(KeyCode.A)) 
+        if (Input.GetKeyDown(KeyCode.A) && _direction != Vector2.right) 
         { _direction = Vector2.left; }
 
         if (transform.position.x < xBoundLeft)
@@ -193,11 +194,13 @@ public class SnakeController : MonoBehaviour
         }
         else if (other.tag == "WormBody")
         {
+            Debug.Log("Snake hit worm body: Worm wins!");
             gameManager.wormWonCollision = true;
             gameManager.GameOver();
         }
         else if (other.tag == "WormHead")
         {
+            Debug.Log("SnakeController: Head to head collision detected");
             gameManager.headToHeadCollision = true;
             gameManager.GameOver();
         }

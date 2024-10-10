@@ -209,7 +209,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "neli\xF6 1080 x 1080 (34)_0": 5930349892338518300
+      "neli\xF6 1080 x 1080 (34)_1": -6896498989407485522
+      "neli\xF6 1080 x 1080 (34)_2": 2058044587209024108
+      "neli\xF6 1080 x 1080 (34)_3": 3322881983012846811
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

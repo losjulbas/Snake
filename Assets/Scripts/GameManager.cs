@@ -62,27 +62,24 @@ public class GameManager : MonoBehaviour
         else if (snakeWonCollision)
         {
             winnerText.text = "SNAKE WON!";
-        }
-        else if (wormWonCollision)
-        {
-            winnerText.text = "WORM WON!";
-        }
-
-        // Calculate final score based on individual scores if needed
-        if (snakeScore > PlayerPrefs.GetInt("HighScore1"))
-        {
-            gameOverScreen.SetActive(true);
-            HighScore(snakeScore);  // Pass snakeScore or wormScore depending on who wins
             fireworksVFXRight.gameObject.SetActive(true);
             fireworksVFXRight.Play();
             fireworksVFXLeft.gameObject.SetActive(true);
             fireworksVFXLeft.Play();
         }
-        else
+        else if (wormWonCollision)
         {
-            gameOverScreen.SetActive(true);  // Show game over screen
-            HighScore(snakeScore);  // Example, adjust based on who wins
+            winnerText.text = "WORM WON!";
+            fireworksVFXRight.gameObject.SetActive(true);
+            fireworksVFXRight.Play();
+            fireworksVFXLeft.gameObject.SetActive(true);
+            fireworksVFXLeft.Play();
         }
+
+        // Show game over screen and handle high score logic
+        gameOverScreen.SetActive(true);
+        HighScore(snakeScore);
+        HighScore(wormScore);
     }
 
     public void RestartButton()

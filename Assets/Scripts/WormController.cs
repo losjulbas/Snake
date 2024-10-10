@@ -46,15 +46,15 @@ public class WormController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && _direction != Vector2.down)
         {
             _direction = Vector2.up;         
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) 
+        if (Input.GetKeyDown(KeyCode.DownArrow) && _direction != Vector2.up) 
         { _direction = Vector2.down; }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) 
+        if (Input.GetKeyDown(KeyCode.RightArrow) && _direction != Vector2.left) 
         { _direction = Vector2.left; }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) 
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && _direction != Vector2.right) 
         { _direction = Vector2.right; }
 
         if (transform.position.x < xBoundLeft)
@@ -187,6 +187,7 @@ public class WormController : MonoBehaviour
         }
         else if (other.tag == "SnakeBody")
         {
+            Debug.Log("Worm hit snake body: Snake wins!");
             gameManager.snakeWonCollision = true;
             gameManager.GameOver();
             //ResetState();
@@ -198,6 +199,7 @@ public class WormController : MonoBehaviour
         }
         else if (other.tag == "WormHead")
         {
+            Debug.Log("SnakeController: Head to head collision detected");
             gameManager.headToHeadCollision = true;
             gameManager.GameOver();
         }
