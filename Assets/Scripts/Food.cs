@@ -18,7 +18,7 @@ public class Food : MonoBehaviour
         wormController = FindAnyObjectByType<WormController>();
         snack = FindAnyObjectByType<Snack>();
         RandomPosition();
-        ResetTimer();
+        //ResetTimer();
 
     }
 
@@ -39,22 +39,22 @@ public class Food : MonoBehaviour
         transform.position = newPosition;
     }
 
-    private void Update()
-    {
-        timeUntilWarp -= Time.deltaTime;
+    //private void Update()
+    //{
+    //    timeUntilWarp -= Time.deltaTime;
 
-        if (timeUntilWarp <= 0)
-        {
-            RandomPosition();
-            ResetTimer();
+    //    if (timeUntilWarp <= 0)
+    //    {
+    //        RandomPosition();
+    //        ResetTimer();
 
-        }
-    }
+    //    }
+    //}
 
-    void ResetTimer()
-    {
-        timeUntilWarp = Random.Range(minWarpTime, maxWarpTime);
-    }
+    //void ResetTimer()
+    //{
+    //    timeUntilWarp = Random.Range(minWarpTime, maxWarpTime);
+    //}
 
     bool IsPositionOccupied(Vector3 position)
     {

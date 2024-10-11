@@ -36,7 +36,7 @@ public class Snack : MonoBehaviour
 
         // Spawn the snack for the first time or after it's been eaten
         RandomPosition();
-        ResetWarpTimer();  // Start the warp timer for snack warping
+        //ResetWarpTimer();  // Start the warp timer for snack warping
         isFirstSpawn = false;  // First spawn done
     }
 
@@ -61,20 +61,20 @@ public class Snack : MonoBehaviour
     {
         if (isFirstSpawn) return;  // Skip warp logic before the first spawn
 
-        timeUntilWarp -= Time.deltaTime;
+        //timeUntilWarp -= Time.deltaTime;
 
-        if (timeUntilWarp <= 0)
-        {
-            // Warp to a new position if the snack hasn't been eaten
-            RandomPosition();
-            ResetWarpTimer();
-        }
+        //if (timeUntilWarp <= 0)
+        //{
+        //    // Warp to a new position if the snack hasn't been eaten
+        //    RandomPosition();
+        //    ResetWarpTimer();
+        //}
     }
 
-    void ResetWarpTimer()
-    {
-        timeUntilWarp = Random.Range(minWarpTime, maxWarpTime);
-    }
+    //void ResetWarpTimer()
+    //{
+    //    timeUntilWarp = Random.Range(minWarpTime, maxWarpTime);
+    //}
 
     bool IsPositionOccupied(Vector3 position)
     {

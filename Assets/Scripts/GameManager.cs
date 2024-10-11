@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
     public bool snakeWonCollision = false;
     public bool wormWonCollision = false;
 
+    private bool isGameOver = false;
+
+    public Image logoImage; 
+    public Sprite normalLogo;
+    public Sprite snakeGreyLogo;  
+    public Sprite wormGreyLogo;
+
     void Awake()
     {
         gameOverScreen.SetActive(false);
@@ -55,9 +62,18 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        Time.timeScale = 0;
+        // Check if the game is already over to avoid multiple executions
+        if (isGameOver) return;
+
+        // Set game over flag to true so the method doesn't execute again
+        isGameOver = true;
+
         if (headToHeadCollision)
         {
             winnerText.text = "ITS A TIE!";
+            logoImage.sprite = normalLogo;
+            winnerText.color = Color.white;
         }
         else if (snakeWonCollision)
         {
@@ -66,6 +82,8 @@ public class GameManager : MonoBehaviour
             fireworksVFXRight.Play();
             fireworksVFXLeft.gameObject.SetActive(true);
             fireworksVFXLeft.Play();
+            logoImage.sprite = wormGreyLogo;
+            winnerText.color = Color.green;
         }
         else if (wormWonCollision)
         {
@@ -74,6 +92,8 @@ public class GameManager : MonoBehaviour
             fireworksVFXRight.Play();
             fireworksVFXLeft.gameObject.SetActive(true);
             fireworksVFXLeft.Play();
+            logoImage.sprite = snakeGreyLogo;
+            winnerText.color = new Color(199f / 255f, 124f / 255f, 44f / 255f);
         }
 
         // Show game over screen and handle high score logic
@@ -84,8 +104,23 @@ public class GameManager : MonoBehaviour
 
     public void RestartButton()
     {
+        // Reset game over flag on restart
+        isGameOver = false;
         Debug.Log("Restart button clicked!");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Reload the current scene
+        Time.timeScale = 1.0f;
+    }
+
+    void Update()
+    {
+        if (isGameOver = true && Input.GetKeyDown(KeyCode.R))
+        {
+            isGameOver = false;
+            Debug.Log("Restart button clicked!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Reload the current scene
+            Time.timeScale = 1.0f;
+        }
+
     }
 
     public void QuitButton()

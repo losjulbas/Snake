@@ -1428,6 +1428,10 @@ MonoBehaviour:
   headToHeadCollision: 0
   snakeWonCollision: 0
   wormWonCollision: 0
+  logoImage: {fileID: 968193071}
+  normalLogo: {fileID: 6542315468173533756, guid: b0ece5e2e78c4cd479ab541299b6d8f8, type: 3}
+  snakeGreyLogo: {fileID: 3467564783289965640, guid: baae9bc6b16749443bc2cb040c390f8e, type: 3}
+  wormGreyLogo: {fileID: 7906014806788873761, guid: e53570858482c2b40b8540d7eef4da97, type: 3}
 --- !u!1 &426384882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,7 +1616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.45882353, b: 0.03137255, a: 1}
+  m_Color: {r: 0.78039217, g: 0.4862745, b: 0.17254902, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2010,7 +2014,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.45896256, b: 0.033018887, a: 1}
+  m_Color: {r: 0.78039217, g: 0.4862745, b: 0.17254902, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3090,7 +3094,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8731124205692807719, guid: 76b1a4e04e3b4b94c9f4480a7d0cd918, type: 3}
+  m_Sprite: {fileID: 6542315468173533756, guid: b0ece5e2e78c4cd479ab541299b6d8f8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3310,8 +3314,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278939893
-  m_fontColor: {r: 0.9607844, g: 0.43921572, b: 0.043137256, a: 1}
+    rgba: 4281105607
+  m_fontColor: {r: 0.78039217, g: 0.4862745, b: 0.17254902, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6310,9 +6314,9 @@ MonoBehaviour:
   bodyPrefab: {fileID: 178011720849314664, guid: b707d098086f4624d958f82f92deccf8, type: 3}
   initialSize: 4
   speed: 0
-  startingSpeed: 15
+  startingSpeed: 24
   speedIncrement: 1
-  maxSpeed: 24
+  maxSpeed: 26
   pendingGrowth: 0
 --- !u!1 &1833236073
 GameObject:
