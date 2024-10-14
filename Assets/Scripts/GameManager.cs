@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviour
     public Sprite snakeGreyLogo;  
     public Sprite wormGreyLogo;
 
+    public AudioClip inGameMusic;  // In-game music clip
+    public AudioClip gameOverMusic;  // Game over music clip
+    private AudioSource audioSource;  // Audio source on the camera or other object
+
     void Awake()
     {
         gameOverScreen.SetActive(false);
@@ -51,6 +55,29 @@ public class GameManager : MonoBehaviour
         if (fireworksVFXLeft != null)
         {
             fireworksVFXLeft.Stop();  // Ensure it doesn't play on start
+        }
+
+        audioSource = Camera.main.GetComponent<AudioSource>(); // Assuming the AudioSource is on the main camera
+        PlayInGameMusic();  // Start with the in-game music
+    }
+
+    // Method to switch to in-game music
+    public void PlayInGameMusic()
+    {
+        if (audioSource.clip != inGameMusic)  // Only change if not already playing
+        {
+            audioSource.clip = inGameMusic;
+            audioSource.Play();
+        }
+    }
+
+    // Method to switch to game-over music
+    public void PlayGameOverMusic()
+    {
+        if (audioSource.clip != gameOverMusic)  // Only change if not already playing
+        {
+            audioSource.clip = gameOverMusic;
+            audioSource.Play();
         }
     }
 
@@ -72,6 +99,8 @@ public class GameManager : MonoBehaviour
 
         // Set game over flag to true so the method doesn't execute again
         isGameOver = true;
+
+        PlayGameOverMusic();  // Play game-over music when the game ends
 
         if (headToHeadCollision)
         {
@@ -111,6 +140,7 @@ public class GameManager : MonoBehaviour
         // Reset game over flag on restart
         isGameOver = false;
         gameOverScreen.SetActive(false);   // Hide game over screen if it's shown
+        PlayInGameMusic();  // Switch back to in-game music when restarting
 
         Debug.Log("Restart button clicked!");
         Time.timeScale = 1.0f;  // Reset the game speed if you have paused it
@@ -123,6 +153,7 @@ public class GameManager : MonoBehaviour
         {
             isGameOver = false;
             Debug.Log("Restart button clicked!");
+            PlayInGameMusic();  // Switch back to in-game music when restarting
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Reload the current scene
             Time.timeScale = 1.0f;
         }
