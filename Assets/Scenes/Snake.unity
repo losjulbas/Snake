@@ -810,7 +810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &302960259
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1343,26 +1343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 452c433e777d903499019a412a0edea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridArea: {fileID: 535472706}
-  minWarpTime: 5
-  maxWarpTime: 15
---- !u!1 &369873766 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3756271143319929529, guid: 27c695168a7c43c40b3ababd60b93fb4, type: 3}
-  m_PrefabInstance: {fileID: 1816766485}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &369873767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369873766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29486784e8dad5b478efd48643c215e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  type: 0
   gridArea: {fileID: 535472706}
   minWarpTime: 5
   maxWarpTime: 15
@@ -1868,7 +1849,7 @@ GameObject:
   - component: {fileID: 539011780}
   - component: {fileID: 539011779}
   - component: {fileID: 539011778}
-  - component: {fileID: 539011777}
+  - component: {fileID: 539011782}
   m_Layer: 0
   m_Name: Worm
   m_TagString: WormHead
@@ -1876,26 +1857,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &539011777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539011776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e772506c8306c744ab5a80b623750b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _wormBody: []
-  bodyPrefab: {fileID: 178011720849314664, guid: 03a23c937e1fab4408acf0fafeba536e, type: 3}
-  initialSize: 4
-  speed: 0
-  startingSpeed: 15
-  speedIncrement: 1
-  maxSpeed: 24
-  pendingGrowth: 0
 --- !u!61 &539011778
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2039,6 +2000,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &539011782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539011776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04752a4c5c05c44c9b385e13341f0be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSnake: 0
+  _body: []
+  bodyPrefab: {fileID: 178011720849314664, guid: 03a23c937e1fab4408acf0fafeba536e, type: 3}
+  initialSize: 4
+  speed: 0.1
+  speedIncrement: 0.01
+  maxSpeed: 0.05
+  pendingGrowth: 0
 --- !u!1 &547348595
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,6 +2376,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &625100964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 625100965}
+  m_Layer: 0
+  m_Name: LeaderboardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &625100965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625100964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.093437, y: -10.854671, z: -7.3444448}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &632835769
 GameObject:
   m_ObjectHideFlags: 0
@@ -2668,7 +2680,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -42.049988, y: 12.300003}
+  m_AnchoredPosition: {x: -141, y: 12.300003}
   m_SizeDelta: {x: 84.099976, y: 24.600006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &684510893
@@ -2740,7 +2752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.050980393, g: 0.050980393, b: 0.050980393, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3471,7 +3483,7 @@ GameObject:
   - component: {fileID: 1064195769}
   - component: {fileID: 1064195768}
   m_Layer: 0
-  m_Name: Wall (3)
+  m_Name: WallDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3605,7 +3617,7 @@ GameObject:
   - component: {fileID: 1113282890}
   - component: {fileID: 1113282889}
   m_Layer: 0
-  m_Name: Wall (2)
+  m_Name: WallUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4620,7 +4632,7 @@ GameObject:
   - component: {fileID: 1489577358}
   - component: {fileID: 1489577357}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: WallLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4754,7 +4766,7 @@ GameObject:
   - component: {fileID: 1499245054}
   - component: {fileID: 1499245053}
   m_Layer: 0
-  m_Name: Wall (1)
+  m_Name: WallRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6083,6 +6095,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1260696321558874913, guid: 27c695168a7c43c40b3ababd60b93fb4, type: 3}
+      propertyPath: gridArea
+      value: 
+      objectReference: {fileID: 535472706}
     - target: {fileID: 3756271143319929529, guid: 27c695168a7c43c40b3ababd60b93fb4, type: 3}
       propertyPath: m_Name
       value: Snack
@@ -6130,10 +6146,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3756271143319929529, guid: 27c695168a7c43c40b3ababd60b93fb4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 369873767}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27c695168a7c43c40b3ababd60b93fb4, type: 3}
 --- !u!1 &1826159011
 GameObject:
@@ -6189,7 +6202,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0023441315, y: 0.0046877414}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -6199,7 +6212,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 1.0203438, y: 1.0062792}
   m_EdgeRadius: 0
 --- !u!50 &1826159013
 Rigidbody2D:
@@ -6310,13 +6323,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04752a4c5c05c44c9b385e13341f0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSnake: 1
   _body: []
   bodyPrefab: {fileID: 178011720849314664, guid: b707d098086f4624d958f82f92deccf8, type: 3}
   initialSize: 4
-  speed: 0
-  startingSpeed: 24
-  speedIncrement: 1
-  maxSpeed: 26
+  speed: 0.1
+  speedIncrement: 0.01
+  maxSpeed: 0.05
   pendingGrowth: 0
 --- !u!1 &1833236073
 GameObject:
@@ -6850,7 +6863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: -187.7
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
@@ -6917,14 +6930,15 @@ SceneRoots:
   - {fileID: 1826159015}
   - {fileID: 539011781}
   - {fileID: 366939087}
+  - {fileID: 1816766485}
   - {fileID: 1489577359}
   - {fileID: 1499245055}
   - {fileID: 1113282891}
   - {fileID: 1064195770}
   - {fileID: 535472707}
   - {fileID: 412192387}
+  - {fileID: 625100965}
   - {fileID: 1272401554}
   - {fileID: 2095868402}
   - {fileID: 1258961889}
   - {fileID: 1735132589}
-  - {fileID: 1816766485}

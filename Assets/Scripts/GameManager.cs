@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.VFX;
+using System.Collections.Generic;
 
 
 public class GameManager : MonoBehaviour
@@ -40,6 +41,9 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(false);
         highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore1", 0).ToString();
         firstScoreText.text = "1ST: " + PlayerPrefs.GetInt("HighScore1", 0).ToString();
+        secondScoreText.text = "2ST: " + PlayerPrefs.GetInt("HighScore2", 0).ToString();
+        thirdScoreText.text = "3ST: " + PlayerPrefs.GetInt("HighScore3", 0).ToString();
+
         if (fireworksVFXRight != null)
         {
             fireworksVFXRight.Stop();  // Ensure it doesn't play on start
@@ -106,14 +110,16 @@ public class GameManager : MonoBehaviour
     {
         // Reset game over flag on restart
         isGameOver = false;
+        gameOverScreen.SetActive(false);   // Hide game over screen if it's shown
+
         Debug.Log("Restart button clicked!");
+        Time.timeScale = 1.0f;  // Reset the game speed if you have paused it
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Reload the current scene
-        Time.timeScale = 1.0f;
     }
 
     void Update()
     {
-        if (isGameOver = true && Input.GetKeyDown(KeyCode.R))
+        if (isGameOver == true && Input.GetKeyDown(KeyCode.R))
         {
             isGameOver = false;
             Debug.Log("Restart button clicked!");

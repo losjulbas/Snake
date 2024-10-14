@@ -11,6 +11,7 @@ public class WormController : MonoBehaviour
 
     private Vector2 _direction = Vector2.right;
     public List<Transform> _wormBody = new List<Transform>();
+    private LinkedList<Vector2> dirChanges = new LinkedList<Vector2>();
     public Transform bodyPrefab;
     public int initialSize = 4;
     float xBoundLeft = -23f;
@@ -92,6 +93,17 @@ public class WormController : MonoBehaviour
     //        {
     //            _body[i].position = _body[i - 1].position;
     //        }
+
+    //while (inputQueue.Count > 0)
+    //{
+    //    Vector2 newDirection = inputQueue.Dequeue();
+
+    //    // Only update direction if it's not an immediate U-turn
+    //    if (newDirection != -_direction)
+    //    {
+    //        _direction = newDirection;
+    //    }
+    //}
 
     //        // Move the snake's head to the new position using Mathf.Round for grid alignment
     //        transform.position = new Vector3(

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snakegreyworm-removebg-preview_0: 3467564783289965640
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
