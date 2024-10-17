@@ -28,12 +28,13 @@ public class SnakeController : MonoBehaviour
     public int pendingGrowth;
 
     private GameManager gameManager; // get the game manager reference
-
+    private SoundManager soundManager;
 
    
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        soundManager = FindAnyObjectByType<SoundManager>();
         _direction = isSnake ? Vector2.right : Vector2.left;
         ResetState();
         gameManager.UpdateSnakeScoreText();
@@ -240,7 +241,7 @@ public class SnakeController : MonoBehaviour
         _body.Add(transform); // Add head back
 
         // Set different starting positions for snake and worm
-        transform.position = new Vector3(isSnake ? -23 : 23, 0, 0);
+        transform.position = new Vector3(isSnake ? -21 : 21, 0, 0);
 
         Vector3 bodyPartPosition = transform.position;
         for (int i = 1; i < initialSize; i++)
@@ -256,10 +257,12 @@ public class SnakeController : MonoBehaviour
         if (other.CompareTag("Food"))
         {
             pendingGrowth += 1;
+            soundManager.EatingFoodSound();
         }
         else if (other.CompareTag("Snack"))
         {
             pendingGrowth += 3;
+            soundManager.EatingFoodSound();
         }
         else if (other.CompareTag("SnakeBody") || other.CompareTag("WormBody"))
         {

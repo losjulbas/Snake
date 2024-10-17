@@ -7,6 +7,7 @@ public class StartMenuManager : MonoBehaviour
 
     public GameObject leaderboardScreen;
     public GameObject startMenuScreen;
+    public GameObject creditsScreen;
 
     public TMP_Text highScoreText;
     public TMP_Text firstScoreText;
@@ -43,6 +44,19 @@ public class StartMenuManager : MonoBehaviour
         leaderboardScreen.SetActive(false);
         startMenuScreen.SetActive(true);
     }
+
+    public void CreditsButton()
+    {
+        creditsScreen.SetActive(true);
+        startMenuScreen.SetActive(false);
+    }
+
+    public void BackToMainMenuFromCredits()
+    {
+        creditsScreen.SetActive(false);
+        startMenuScreen.SetActive(true);
+    }
+
 
     public void HighScore(int playerScore)
     {

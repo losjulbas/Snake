@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject gameOverScreen;
     public GameObject leaderboardScreen;
+    public GameObject creditsScreen;
     public VisualEffect fireworksVFXRight;
     public VisualEffect fireworksVFXLeft;
 
@@ -38,7 +39,9 @@ public class GameManager : MonoBehaviour
 
     public AudioClip inGameMusic;  // In-game music clip
     public AudioClip gameOverMusic;  // Game over music clip
+    public AudioClip fireWorks;
     private AudioSource audioSource;  // Audio source on the camera or other object
+    private AudioSource gameManagerAudioSource;
 
     void Awake()
     {
@@ -58,8 +61,10 @@ public class GameManager : MonoBehaviour
         }
 
         audioSource = Camera.main.GetComponent<AudioSource>(); // Assuming the AudioSource is on the main camera
+        gameManagerAudioSource = GetComponent<AudioSource>();
         PlayInGameMusic();  // Start with the in-game music
     }
+
 
     // Method to switch to in-game music
     public void PlayInGameMusic()
@@ -69,6 +74,13 @@ public class GameManager : MonoBehaviour
             audioSource.clip = inGameMusic;
             audioSource.Play();
         }
+    }
+
+    public void PlayFireworks()
+    {
+        Debug.Log("Playing fireworks sound!");
+        gameManagerAudioSource.clip = fireWorks;  // Use the gameManagerAudioSource instead
+        gameManagerAudioSource.Play();
     }
 
     // Method to switch to game-over music
@@ -117,6 +129,7 @@ public class GameManager : MonoBehaviour
             fireworksVFXLeft.Play();
             logoImage.sprite = wormGreyLogo;
             winnerText.color = Color.green;
+            PlayFireworks();
         }
         else if (wormWonCollision)
         {
@@ -127,6 +140,7 @@ public class GameManager : MonoBehaviour
             fireworksVFXLeft.Play();
             logoImage.sprite = snakeGreyLogo;
             winnerText.color = new Color(199f / 255f, 124f / 255f, 44f / 255f);
+            PlayFireworks();
         }
 
         // Show game over screen and handle high score logic
@@ -179,6 +193,18 @@ public class GameManager : MonoBehaviour
     {
         leaderboardScreen.SetActive(false);
         gameOverScreen.SetActive(true);
+    }
+
+    public void CreditsButton()
+    {
+        creditsScreen.SetActive(true);
+        gameOverScreen.SetActive(false);
+    }
+
+    public void BackToMainMenuFromCredits()
+    {
+        creditsScreen.SetActive(false);
+        gameOverScreen.SetActive(true); ;
     }
 
     public void HighScore(int playerScore)
