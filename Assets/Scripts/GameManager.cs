@@ -32,9 +32,9 @@ public class GameManager : MonoBehaviour
 
     private bool isGameOver = false;
 
-    public Image logoImage; 
+    public Image logoImage;
     public Sprite normalLogo;
-    public Sprite snakeGreyLogo;  
+    public Sprite snakeGreyLogo;
     public Sprite wormGreyLogo;
 
     public AudioClip inGameMusic;  // In-game music clip
@@ -251,4 +251,3 @@ public class GameManager : MonoBehaviour
         Debug.Log("All saved data has been cleared.");
     }
 }
-

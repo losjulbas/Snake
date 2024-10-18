@@ -30,14 +30,22 @@ public class SnakeController : MonoBehaviour
     private GameManager gameManager; // get the game manager reference
     private SoundManager soundManager;
 
-   
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         soundManager = FindAnyObjectByType<SoundManager>();
         _direction = isSnake ? Vector2.right : Vector2.left;
         ResetState();
-        gameManager.UpdateSnakeScoreText();
+        // Ensure both snake and worm score are updated at the start
+        if (isSnake)
+        {
+            gameManager.UpdateSnakeScoreText();
+        }
+        else
+        {
+            gameManager.UpdateWormScoreText();
+        }
         StartCoroutine(MoveSnake());
     }
 
@@ -171,7 +179,7 @@ public class SnakeController : MonoBehaviour
 
     public void ChangeDirection(Vector2 dir)
     {
-        
+
         if (CanChangeDirection(dir)) //if move is legal
         {
             dirChanges.AddLast(dir); //add to the buffer
@@ -276,7 +284,7 @@ public class SnakeController : MonoBehaviour
             }
             gameManager.GameOver();
         }
-        else if (other.CompareTag("SnakeHead")  || other.CompareTag("WormHead"))
+        else if (other.CompareTag("SnakeHead") || other.CompareTag("WormHead"))
         {
             gameManager.headToHeadCollision = true;
             gameManager.GameOver();

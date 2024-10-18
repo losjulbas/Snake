@@ -172,7 +172,7 @@ public class WormController : MonoBehaviour
         _wormBody.Add(transform);
 
         // Move the snake's head to the starting position
-        transform.position = new Vector3(23, 0, 0);
+        transform.position = new Vector3(24, 0, 0);
 
         // For each body part, instantiate it at a position relative to the head
         Vector3 bodyPartPosition = transform.position;
@@ -200,27 +200,23 @@ public class WormController : MonoBehaviour
         else if (other.tag == "SnakeBody")
         {
             Debug.Log("Worm hit snake body: Snake wins!");
+            Debug.Log("Worm hit snake body");
             gameManager.snakeWonCollision = true;
             gameManager.GameOver();
             //ResetState();
         }
-        else if (other.tag == "WormBody")
-        {
-            gameManager.snakeWonCollision = true;
-            gameManager.GameOver();
-        }
+        //else if (other.tag == "WormBody")
+        //{
+        //    gameManager.snakeWonCollision = true;
+        //    gameManager.GameOver();
+        //}
         else if (other.tag == "WormHead")
-        {
+
             Debug.Log("SnakeController: Head to head collision detected");
+            Debug.Log("WormController: Head to head collision");
             gameManager.headToHeadCollision = true;
             gameManager.GameOver();
         }
     }
 
 
-    //public void UpdateScoreText()
-    //{
-    //    scoreText.text = "Score: " + score.ToString();
-    //}
-
-}
